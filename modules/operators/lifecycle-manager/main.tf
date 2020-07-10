@@ -25,19 +25,6 @@ resource "null_resource" "operator_lifecycle_manager_crds" {
   ]
 }
 
-# # Wait for OLM CRDs completion
-# resource "null_resource" "operator_lifecycle_manager_crds_wait" {
-#   provisioner "local-exec" {
-#     # environment = {
-#     #   KUBECONFIG = "${path.root}/creds/config"
-#     # }
-#     command = "/usr/local/bin/kubectl -n operator-lifecycle-manager wait --for=condition=complete job --all"
-#   }
-#   depends_on = [
-#     null_resource.operator_lifecycle_manager_crds
-#   ]
-# }
-
 # Install OLM
 resource "null_resource" "operator_lifecycle_manager_install" {
   provisioner "local-exec" {
@@ -46,7 +33,7 @@ resource "null_resource" "operator_lifecycle_manager_install" {
     # }
     command = "sleep 10 && /usr/local/bin/kubectl apply --validate=false -f ${path.module}/crds/olm-${var.operator_lifecycle_manager_version}.yaml"
   }
-  # depends_on = [
-  #   null_resource.operator_lifecycle_manager_crds_wait
-  # ]
+  depends_on = [
+    null_resource.operator_lifecycle_manager_crds
+  ]
 }
