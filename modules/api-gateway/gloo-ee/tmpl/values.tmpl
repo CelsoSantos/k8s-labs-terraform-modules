@@ -1,3 +1,4 @@
+create_license_secret: true
 gloo:
   accessLogger:
     enabled: ${access_logger_enabled}
@@ -36,6 +37,7 @@ settings:
 
 global:
   glooRbac:
-    create: false
+    create: true
+    namespaced: false
   glooStats:
     enabled: false
