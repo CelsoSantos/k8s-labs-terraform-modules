@@ -12,16 +12,6 @@ resource "kubernetes_namespace" "operator_lifecycle_manager" {
   }
 }
 
-# DEBUG
-resource "null_resource" "olm_debug" {
-  provisioner "local-exec" {
-    # environment = {
-    #   KUBECONFIG = "${path.root}/creds/config"
-    # }
-    command = "echo $PATH"
-  }
-}
-
 # Install the `CustomResourceDefinition` resources separately
 resource "null_resource" "operator_lifecycle_manager_crds" {
   provisioner "local-exec" {
@@ -35,18 +25,18 @@ resource "null_resource" "operator_lifecycle_manager_crds" {
   ]
 }
 
-# Wait for OLM CRDs completion
-resource "null_resource" "operator_lifecycle_manager_crds_wait" {
-  provisioner "local-exec" {
-    # environment = {
-    #   KUBECONFIG = "${path.root}/creds/config"
-    # }
-    command = "/usr/local/bin/kubectl -n operator-lifecycle-manager wait --for=condition=complete job --all"
-  }
-  depends_on = [
-    null_resource.operator_lifecycle_manager_crds
-  ]
-}
+# # Wait for OLM CRDs completion
+# resource "null_resource" "operator_lifecycle_manager_crds_wait" {
+#   provisioner "local-exec" {
+#     # environment = {
+#     #   KUBECONFIG = "${path.root}/creds/config"
+#     # }
+#     command = "/usr/local/bin/kubectl -n operator-lifecycle-manager wait --for=condition=complete job --all"
+#   }
+#   depends_on = [
+#     null_resource.operator_lifecycle_manager_crds
+#   ]
+# }
 
 # Install OLM
 resource "null_resource" "operator_lifecycle_manager_install" {
