@@ -29,7 +29,7 @@ variable "gateway_enabled" {
 variable "gateway_stats" {
   description = "Enable Gloo Enterprise Gateway Stats"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "grafana_password" {
@@ -78,12 +78,12 @@ variable "prometheus_url" {
 variable "release_version" {
   description = "Version of Gloo Enterprise Gateway to install"
   type        = string
-  default     = "1.2.0"
+  default     = "1.4.2"
 }
 
 variable "stats" {
   description = "Enable Gloo Enterprise Gateway Deployment Stats"
   type        = bool
-  default     = true
+  default     = false
 }
 

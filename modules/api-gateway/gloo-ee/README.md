@@ -36,7 +36,7 @@ module "gloo_gw" {
   license_key            = "LICENSE_KEY"
   namespace              = "gloo-system"
   prometheus_url         = "protocol://svc-name.namespace.svc:port"
-  release_version        = "1.2.0"
+  release_version        = "1.4.2"
   stats                  = true
 }
 ```
@@ -58,7 +58,7 @@ module "gloo_gw" {
 | license_key        | Gloo Enterprise Gateway License Key                      |       -       |   Yes    |
 | namespace          | Name of the Namespace to create and install Gloo Gateway | "gloo-system" |    No    |
 | prometheus_url     | URL for custom Prometheus instance                       |       -       |   Yes    |
-| release_version    | Version of Gloo Gateway to install                       |    "1.2.0"    |    No    |
+| release_version    | Version of Gloo Gateway to install                       |    "1.4.2"    |    No    |
 | stats              | Enable Prometheus Stats                                  |     true      |    No    |
 
 ## Output Variables
