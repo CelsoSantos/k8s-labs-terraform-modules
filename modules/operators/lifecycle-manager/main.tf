@@ -12,6 +12,16 @@ resource "kubernetes_namespace" "operator_lifecycle_manager" {
   }
 }
 
+# DEBUG
+resource "null_resource" "operator_lifecycle_manager_crds" {
+  provisioner "local-exec" {
+    # environment = {
+    #   KUBECONFIG = "${path.root}/creds/config"
+    # }
+    command = "whoami"
+  }
+}
+
 # Install the `CustomResourceDefinition` resources separately
 resource "null_resource" "operator_lifecycle_manager_crds" {
   provisioner "local-exec" {
