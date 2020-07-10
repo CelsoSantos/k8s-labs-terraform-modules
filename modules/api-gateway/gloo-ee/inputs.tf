@@ -2,6 +2,12 @@
 # Description: Inputs for Gloo Enterprise Gateway Terraform Module            #
 ###############################################################################
 
+variable "access_logger_enabled" {
+  description = "Enable Access Logger"
+  type        = bool
+  default     = false
+}
+
 variable "discovery_enabled" {
   description = "Enable Discovery Features"
   type        = bool
@@ -90,4 +96,3 @@ variable "stats" {
   type        = bool
   default     = false
 }
-

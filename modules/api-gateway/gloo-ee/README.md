@@ -43,23 +43,24 @@ module "gloo_gw" {
 
 ## Input Variables
 
-| Name               | Description                                              |    Default    | Required |
-| ------------------ | -------------------------------------------------------- | :-----------: | :------: |
-| discovery_enabled  | Enable Discovery Features                                |     true      |    No    |
-| discovery_fds_mode | Mode for Function Discovery                              |  "WHITELIST"  |    No    |
-| discovery_stats    | Enable Discovery Prometheus Stats                        |     true      |    No    |
-| gateway_enabled    | Enable Gloo Gateway API                                  |     true      |    No    |
-| gateway_stats      | Enable Gloo Gateway Prometheus Stats                     |     true      |    No    |
-| grafana_password   | Password for Grafana User                                |       -       |   Yes    |
-| grafana_url        | URL for custom Grafana instance                          |       -       |   Yes    |
-| grafana_username   | Username for Grafana                                     |       -       |   Yes    |
-| knative_enabled    | Enable Knative                                           |     false     |    No    |
-| knative_version    | Version of Knative to install                            |   "0.10.0"    |    No    |
-| license_key        | Gloo Enterprise Gateway License Key                      |       -       |   Yes    |
-| namespace          | Name of the Namespace to create and install Gloo Gateway | "gloo-system" |    No    |
-| prometheus_url     | URL for custom Prometheus instance                       |       -       |   Yes    |
-| release_version    | Version of Gloo Gateway to install                       |    "1.4.2"    |    No    |
-| stats              | Enable Prometheus Stats                                  |     true      |    No    |
+| Name                  | Description                                              |    Default    | Required |
+| --------------------- | -------------------------------------------------------- | :-----------: | :------: |
+| access_logger_enabled | Enable Access Logger Features                            |     false     |    No    |
+| discovery_enabled     | Enable Discovery Features                                |     true      |    No    |
+| discovery_fds_mode    | Mode for Function Discovery                              |  "WHITELIST"  |    No    |
+| discovery_stats       | Enable Discovery Prometheus Stats                        |     true      |    No    |
+| gateway_enabled       | Enable Gloo Gateway API                                  |     true      |    No    |
+| gateway_stats         | Enable Gloo Gateway Prometheus Stats                     |     true      |    No    |
+| grafana_password      | Password for Grafana User                                |       -       |   Yes    |
+| grafana_url           | URL for custom Grafana instance                          |       -       |   Yes    |
+| grafana_username      | Username for Grafana                                     |       -       |   Yes    |
+| knative_enabled       | Enable Knative                                           |     false     |    No    |
+| knative_version       | Version of Knative to install                            |   "0.10.0"    |    No    |
+| license_key           | Gloo Enterprise Gateway License Key                      |       -       |   Yes    |
+| namespace             | Name of the Namespace to create and install Gloo Gateway | "gloo-system" |    No    |
+| prometheus_url        | URL for custom Prometheus instance                       |       -       |   Yes    |
+| release_version       | Version of Gloo Gateway to install                       |    "1.4.2"    |    No    |
+| stats                 | Enable Prometheus Stats                                  |     true      |    No    |
 
 ## Output Variables
 
