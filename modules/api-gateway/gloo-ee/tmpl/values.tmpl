@@ -6,7 +6,8 @@ gloo:
   discovery:
     enabled: ${discovery_enabled}
     deployment:
-      stats: ${discovery_stats}
+      stats:
+        enabled: ${discovery_stats}
     fdsMode: ${discovery_fds_mode}
   gateway:
     enabled: ${gateway_enabled}
