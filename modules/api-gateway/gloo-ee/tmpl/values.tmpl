@@ -1,6 +1,8 @@
 gloo:
   accessLogger:
     enabled: ${access_logger_enabled}
+    stats:
+      enabled: false
   discovery:
     enabled: ${discovery_enabled}
     deployment:
@@ -9,93 +11,93 @@ gloo:
   gateway:
     enabled: ${gateway_enabled}
     deployment:
-      stats: ${gateway_stats}
+      stats:
+        enabled: ${gateway_stats}
   gatewayProxies:
     gatewayProxy:
-      stats: true
+      stats:
+        enabled: true
   gloo:
     deployment:
-      stats: ${stats}
+      stats:
+        enabled: ${stats}
   namespace:
     create: false
   k8s:
     clusterName: cluster.local
-  settings:
-    create: true
-    integrations:
-      knative:
-        enabled: ${knative_enabled}
-        version: ${knative_version}
-        proxy:
-          image:
-            repository: gloo-envoy-wrapper
-          httpPort: 80
-          httpsPort: 443
-          replicas: 1
-          stats: true
 
-grafana:
-  dashboardProviders:
-    dashboardproviders.yaml:
-      apiVersion: 1
-      providers:
-        - disableDeletion: false
-          editable: true
-          folder: gloo
-          name: gloo
-          options:
-            path: /var/lib/grafana/dashboards/gloo
-          orgId: 1
-          type: file
-  dashboardsConfigMaps:
-    gloo: glooe-grafana-custom-dashboards
-  datasources:
-    datasources.yaml:
-      apiVersion: 1
-      datasources:
-        - access: proxy
-          isDefault: true
-          name: gloo
-          type: prometheus
-          url: ${prometheus_url}
-  defaultInstallationEnabled: false
+settings:
+  create: true
+  integrations:
+    knative:
+      enabled: ${knative_enabled}
+      version: ${knative_version}
 
-observability:
-  customGrafana:
-    enabled: true
-    username: ${grafana_username}
-    password: ${grafana_password}
-    url: ${grafana_url}
+# grafana:
+#   dashboardProviders:
+#     dashboardproviders.yaml:
+#       apiVersion: 1
+#       providers:
+#         - disableDeletion: false
+#           editable: true
+#           folder: gloo
+#           name: gloo
+#           options:
+#             path: /var/lib/grafana/dashboards/gloo
+#           orgId: 1
+#           type: file
+#   dashboardsConfigMaps:
+#     gloo: glooe-grafana-custom-dashboards
+#   datasources:
+#     datasources.yaml:
+#       apiVersion: 1
+#       datasources:
+#         - access: proxy
+#           isDefault: true
+#           name: gloo
+#           type: prometheus
+#           url: ${prometheus_url}
+#   defaultInstallationEnabled: false
 
-prometheus:
-  enabled: true
-  alertmanager:
-    enabled: true
-    persistentVolume:
-      size: 20Gi
-    statefulSet:
-      enabled: true
-  nodeExporter:
+# observability:
+#   customGrafana:
+#     enabled: true
+#     username: ${grafana_username}
+#     password: ${grafana_password}
+#     url: ${grafana_url}
+
+# prometheus:
+#   enabled: true
+#   alertmanager:
+#     enabled: true
+#     persistentVolume:
+#       size: 20Gi
+#     statefulSet:
+#       enabled: true
+#   nodeExporter:
+#     enabled: false
+#   pushgateway:
+#     persistentVolume:
+#       size: 10Gi
+#   rbac:
+#     create: true
+#   server:
+#     statefulSet:
+#       enabled: true
+
+global:
+  glooRbac:
+    create: false
+  glooStats:
     enabled: false
-  pushgateway:
-    persistentVolume:
-      size: 10Gi
-  rbac:
-    create: true
-  server:
-    statefulSet:
-      enabled: true
-
-rbac:
-  create: false
-redis:
-  deployment:
-    image:
-      pullPolicy: IfNotPresent
-      registry: docker.io
-      repository: redis
-      tag: "5"
-    staticPort: 6379
-  service:
-    name: redis
-    port: 6379
+  # redis:
+  #   deployment:
+  #     image:
+  #       pullPolicy: IfNotPresent
+  #       registry: docker.io
+  #       repository: redis
+  #       tag: "5"
+  #     staticPort: 6379
+  #   service:
+  #     name: redis
+  #     port: 6379
