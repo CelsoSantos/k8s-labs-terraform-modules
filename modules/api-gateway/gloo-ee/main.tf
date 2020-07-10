@@ -57,10 +57,6 @@ resource "helm_release" "gloo_ee" {
     name  = "license_key"
     value = "${var.license_key}"
   }
-
-  depends_on = [
-    local_file.gloo_ee_values_render
-  ]
 }
 
 # resource "null_resource" "gloo_gateway" {
