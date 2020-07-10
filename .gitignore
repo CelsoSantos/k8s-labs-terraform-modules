@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# tmp files
+\#*
+.*.sw?
+*~
+
+#  Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+*.tfvars
+
+# Generated Files
+generated

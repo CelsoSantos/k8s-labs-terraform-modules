@@ -1,0 +1,29 @@
+global:
+  proxy:
+    accessLogFile: "/dev/stdout"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 40Mi
+
+  controlPlaneSecurityEnabled: true
+
+  mtls:
+    # Default setting for service-to-service mtls. Can be set explicitly using
+    # destination rules or service annotations.
+    enabled: ${mtls}
+
+  sds:
+    enabled: ${sds}
+    udsPath: "unix:/var/run/sds/uds_path"
+    token:
+      aud: "istio-ca"
+
+nodeagent:
+  enabled: ${nodeagent}
+  image: node-agent-k8s
+  env:
+    CA_PROVIDER: ${ca_provider}
+    CA_ADDR: ${ca_addr}
+    VALID_TOKEN: true
+
