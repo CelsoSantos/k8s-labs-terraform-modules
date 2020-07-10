@@ -18,7 +18,7 @@ resource "null_resource" "olm_debug" {
     # environment = {
     #   KUBECONFIG = "${path.root}/creds/config"
     # }
-    command = "whoami"
+    command = "echo $PATH"
   }
 }
 
