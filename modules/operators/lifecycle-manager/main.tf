@@ -44,9 +44,9 @@ resource "null_resource" "operator_lifecycle_manager_install" {
     # environment = {
     #   KUBECONFIG = "${path.root}/creds/config"
     # }
-    command = "/usr/local/bin/kubectl apply --validate=false -f ${path.module}/crds/olm-${var.operator_lifecycle_manager_version}.yaml"
+    command = "sleep 10 && /usr/local/bin/kubectl apply --validate=false -f ${path.module}/crds/olm-${var.operator_lifecycle_manager_version}.yaml"
   }
-  depends_on = [
-    null_resource.operator_lifecycle_manager_crds_wait
-  ]
+  # depends_on = [
+  #   null_resource.operator_lifecycle_manager_crds_wait
+  # ]
 }
