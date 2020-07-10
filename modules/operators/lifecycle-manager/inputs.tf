@@ -5,5 +5,5 @@
 variable "operator_lifecycle_manager_version" {
   description = "OLM version"
   type        = string
-  default     = "0.13.0"
+  default     = "0.15.1"
 }
