@@ -44,6 +44,6 @@ resource "helm_release" "gloo_ee" {
   }
 
   depends_on = [
-    local_file.gloo_ee_values_render
+    kubernetes_namespace.gloo_system
   ]
 }
