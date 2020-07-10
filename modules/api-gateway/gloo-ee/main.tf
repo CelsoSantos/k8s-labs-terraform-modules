@@ -11,16 +11,6 @@ resource "kubernetes_namespace" "gloo_system" {
   }
 }
 
-# # Add the Solo Enterprise Helm repository and update your local Helm chart repository cache
-# resource "null_resource" "helm_repo_gloo_ee" {
-#   provisioner "local-exec" {
-#     # environment = {
-#     #   KUBECONFIG = "${path.root}/creds/config"
-#     # }
-#     command = "/usr/local/bin/helm repo add gloo-ee http://storage.googleapis.com/gloo-ee-helm && /usr/local/bin/helm repo update"
-#   }
-# }
-
 data "template_file" "gloo_ee_values_template" {
   template = file("${path.module}/tmpl/values.tmpl")
 
