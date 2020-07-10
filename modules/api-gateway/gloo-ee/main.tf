@@ -39,6 +39,10 @@ data "template_file" "gloo_ee_values_template" {
 resource "local_file" "gloo_ee_values_render" {
   content  = data.template_file.gloo_ee_values_template.rendered
   filename = "${path.cwd}/generated/gloo-ee/values.yaml"
+
+  depends_on = [
+    template_file.gloo_ee_values_template
+  ]
 }
 
 resource "helm_release" "gloo_ee" {
@@ -57,6 +61,10 @@ resource "helm_release" "gloo_ee" {
     name  = "license_key"
     value = "${var.license_key}"
   }
+
+  depends_on = [
+    local_file.gloo_ee_values_render
+  ]
 }
 
 # resource "null_resource" "gloo_gateway" {
