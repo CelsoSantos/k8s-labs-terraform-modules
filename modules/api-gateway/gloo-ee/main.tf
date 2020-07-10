@@ -42,7 +42,7 @@ data "template_file" "gloo_ee_values_template" {
   }
 
   depends_on = [
-    null_resource.helm_repo_gloo_ee
+    kubernetes_namespace.gloo_system
   ]
 }
 
