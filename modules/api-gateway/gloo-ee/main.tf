@@ -38,7 +38,7 @@ data "template_file" "gloo_ee_values_template" {
 
 resource "local_file" "gloo_ee_values_render" {
   content  = data.template_file.gloo_ee_values_template.rendered
-  filename = "${path.root}/generated/gloo-ee/values.yaml"
+  filename = "${path.cwd}/generated/gloo-ee/values.yaml"
 }
 
 resource "helm_release" "gloo_ee" {
@@ -50,7 +50,7 @@ resource "helm_release" "gloo_ee" {
   atomic     = true
 
   values = [
-    "${file("${path.root}/generated/gloo-ee/values.yaml")}"
+    "${file("${path.cwd}/generated/gloo-ee/values.yaml")}"
   ]
 
   set_sensitive {
