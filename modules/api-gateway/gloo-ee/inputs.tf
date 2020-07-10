@@ -35,16 +35,19 @@ variable "gateway_stats" {
 variable "grafana_password" {
   description = "Password for Grafana User"
   type        = string
+  default     = "admin"
 }
 
 variable "grafana_url" {
   description = "URL for custom Grafana instance"
   type        = string
+  default     = ""
 }
 
 variable "grafana_username" {
   description = "Username for Grafana"
   type        = string
+  default     = "admin"
 }
 
 variable "knative_enabled" {
@@ -73,6 +76,7 @@ variable "namespace" {
 variable "prometheus_url" {
   description = "URL for custom Prometheus instance"
   type        = string
+  default     = ""
 }
 
 variable "release_version" {
