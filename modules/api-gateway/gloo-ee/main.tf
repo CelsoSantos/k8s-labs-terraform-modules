@@ -15,9 +15,9 @@ resource "helm_release" "gloo_ee" {
   name       = "gloo-ee"
   repository = "http://storage.googleapis.com/gloo-ee-helm"
   chart      = "gloo-ee"
-  version    = "${var.release_version}"
+  version    = "${var.release_version}"brewfdf
   namespace  = "${var.namespace}"
-  atomic     = true
+  atomic     = false
 
   values = [
     "${templatefile("${path.module}/tmpl/values.tmpl", {
