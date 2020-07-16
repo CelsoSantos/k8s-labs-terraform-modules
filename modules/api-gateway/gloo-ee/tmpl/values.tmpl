@@ -1,4 +1,8 @@
 create_license_secret: true
+
+devPortal:
+  enabled: false
+
 gloo:
   accessLogger:
     enabled: ${access_logger_enabled}
@@ -28,16 +32,53 @@ gloo:
   k8s:
     clusterName: cluster.local
 
-settings:
-  create: true
-  integrations:
-    knative:
-      enabled: ${knative_enabled}
-      version: ${knative_version}
-
 global:
   glooRbac:
     create: true
     namespaced: false
   glooStats:
     enabled: false
+
+grafana:
+  admin:
+    existingSecret: ""
+    passwordKey: admin-password
+    userKey: admin-user
+  adminPassword: admin
+  adminUser: admin
+  defaultInstallationEnabled: true
+  persistence:
+    accessModes:
+      - ReadWriteOnce
+    enabled: true
+    finalizers:
+      - kubernetes.io/pvc-protection
+    size: 2Gi
+    type: pvc
+  replicas: 1
+
+prometheus:
+  alertmanager:
+    enabled: false
+    persistentVolume:
+      accessModes:
+        - ReadWriteOnce
+      annotations: {}
+      enabled: true
+      existingClaim: ""
+      mountPath: /data
+      size: 10Gi
+      subPath: ""
+  enabled: true
+  rbac:
+    create: true
+
+rbac:
+  create: true
+
+settings:
+  create: true
+  integrations:
+    knative:
+      enabled: ${knative_enabled}
+      version: ${knative_version}
