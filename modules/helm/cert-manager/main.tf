@@ -23,7 +23,7 @@ resource "null_resource" "cert_manager_crds" {
     environment = {
       KUBECONFIG = "${path.cwd}/creds/config"
     }
-    command = "/usr/local/bin/kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v${release_version}/cert-manager.crds.yaml"
+    command = "/usr/local/bin/kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v${var.release_version}/cert-manager.crds.yaml"
   }
   depends_on = [
     kubernetes_namespace.cert_manager
