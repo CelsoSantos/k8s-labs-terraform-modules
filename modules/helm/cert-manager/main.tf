@@ -81,8 +81,7 @@ resource "null_resource" "cert_manager_dns01" {
     environment = {
       KUBECONFIG = "${path.cwd}/creds/config"
     }
-    command = "/usr/local/bin/kubectl apply -f 
-    ${templatefile("${path.module}/tmpl/production-issuer-dns.tmpl", {
+    command = "/usr/local/bin/kubectl apply -f ${templatefile("${path.module}/tmpl/production-issuer-dns.tmpl", {
       accessKeyID = var.route53_access_key_id
       account_id  = var.account_id
       region      = var.region
