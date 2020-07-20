@@ -26,6 +26,11 @@ variable "region" {
   default     = ""
 }
 
+variable "admin_email" {
+  description = "Admin email"
+  type        = string
+}
+
 variable "route53_access_key_id" {
   description = "Route53 account key ID"
   type        = string

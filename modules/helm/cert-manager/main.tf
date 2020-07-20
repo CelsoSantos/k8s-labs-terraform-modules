@@ -36,6 +36,16 @@ resource "helm_release" "helm_install_cert_manager" {
 }
 
 # HTTP01
+resource "local_file" "cert_manager_prod_issuer_http" {
+  content = "${templatefile("${path.module}/tmpl/production-issuer-http.tmpl", {
+    admin_email = var.admin_email
+  })}"
+  filename = "${path.module}/tmpl/production-issuer-http.yaml"
+  depends_on = [
+    helm_release.helm_install_cert_manager
+  ]
+}
+
 resource "null_resource" "cert_manager_http01" {
   provisioner "local-exec" {
     environment = {
@@ -44,7 +54,7 @@ resource "null_resource" "cert_manager_http01" {
     command = "/usr/local/bin/kubectl apply -f ${path.module}/tmpl/production-issuer-http.yaml"
   }
   depends_on = [
-    helm_release.helm_install_cert_manager
+    local_file.cert_manager_prod_issuer_http
   ]
 }
 
@@ -65,6 +75,7 @@ resource "kubernetes_secret" "route53_secret" {
 # DNS01
 resource "local_file" "cert_manager_prod_issuer_dns" {
   content = "${templatefile("${path.module}/tmpl/production-issuer-dns.tmpl", {
+    admin_email = var.admin_email
     accessKeyID = var.route53_access_key_id
     account_id  = var.account_id
     region      = var.region
