@@ -17,6 +17,19 @@ resource "kubernetes_namespace" "cert_manager" {
   }
 }
 
+# Install the `CustomResourceDefinition` resources separately
+resource "null_resource" "cert_manager_crds" {
+  provisioner "local-exec" {
+    environment = {
+      KUBECONFIG = "${path.cwd}/creds/config"
+    }
+    command = "/usr/local/bin/kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v${release_version}/cert-manager.crds.yaml"
+  }
+  depends_on = [
+    kubernetes_namespace.cert_manager
+  ]
+}
+
 # Install cert-manager
 resource "helm_release" "helm_install_cert_manager" {
   name       = "cert-manager"
@@ -28,10 +41,11 @@ resource "helm_release" "helm_install_cert_manager" {
 
   set {
     name  = "installCRDs"
-    value = true
+    value = false
   }
+
   depends_on = [
-    kubernetes_namespace.cert_manager
+    null_resource.cert_manager_crds
   ]
 }
 
