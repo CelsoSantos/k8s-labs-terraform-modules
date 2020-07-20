@@ -7,13 +7,13 @@
 resource "kubernetes_namespace" "cert_manager" {
   metadata {
     annotations = {
-      name = "cert-manager"
+      name = var.namespace
     }
     # kubectl label namespace cert-manager certmanager.k8s.io/disable-validation="true"
     labels = {
       "certmanager.k8s.io/disable-validation" = "true"
     }
-    name = "cert-manager"
+    name = var.namespace
   }
 }
 
