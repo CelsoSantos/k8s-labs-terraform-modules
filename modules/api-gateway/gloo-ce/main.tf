@@ -11,46 +11,34 @@ resource "kubernetes_namespace" "gloo_system" {
   }
 }
 
-# Add the Solo Helm repository and update your local Helm chart repository cache
-resource "null_resource" "helm_repo_gloo" {
-  provisioner "local-exec" {
-    environment = {
-      KUBECONFIG = "${path.root}/creds/config"
-    }
-    command = "/usr/local/bin/helm repo add gloo https://storage.googleapis.com/solo-public-helm && /usr/local/bin/helm repo update"
-  }
-}
+resource "helm_release" "gloo_ce" {
+  name       = "gloo-ce"
+  repository = "https://storage.googleapis.com/solo-public-helm"
+  chart      = "gloo-ce"
+  version    = "${var.release_version}"
+  namespace  = "${var.namespace}"
+  atomic     = false
 
-data "template_file" "gloo_ce_values_template" {
-  template = file("${path.module}/tmpl/values.tmpl")
+  values = [
+    "${file("${path.module}/tmpl/values.yaml")}"
+  ]
 
-  vars = {
-    discovery_enabled  = var.discovery_enabled
-    discovery_fds_mode = var.discovery_fds_mode
-    gateway_enabled    = var.gateway_enabled
-    knative_enabled    = var.knative_enabled
-    knative_version    = var.knative_version
-  }
+  # values = [
+  #   "${templatefile("${path.module}/tmpl/values.tmpl", {
+  #      discovery_enabled  = var.discovery_enabled
+  #      discovery_fds_mode = var.discovery_fds_mode
+  #      gateway_enabled    = var.gateway_enabled
+  #      knative_enabled    = var.knative_enabled
+  #      knative_version    = var.knative_version
+  #   })}"
+  # ]
+
+  # set_sensitive {
+  #   name  = "license_key"
+  #   value = "${var.license_key}"
+  # }
 
   depends_on = [
-    null_resource.helm_repo_gloo
+    kubernetes_namespace.gloo_system
   ]
 }
-
-resource "local_file" "gloo_ce_values_render" {
-  content  = data.template_file.gloo_ce_values_template.rendered
-  filename = "${path.root}/generated/gloo-ce/values.yaml"
-}
-
-resource "null_resource" "gloo_gateway" {
-  provisioner "local-exec" {
-    environment = {
-      KUBECONFIG = "${path.root}/creds/config"
-    }
-    command = "/usr/local/bin/helm install gloo gloo/gloo --atomic -f ${path.root}/generated/gloo-ce/values.yaml --namespace ${var.namespace}"
-  }
-  depends_on = [
-    local_file.gloo_ce_values_render
-  ]
-}
-
