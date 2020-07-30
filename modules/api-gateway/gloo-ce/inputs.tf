@@ -41,6 +41,6 @@ variable "namespace" {
 variable "release_version" {
   description = "Version of Gloo Gateway to install"
   type        = string
-  default     = "1.4.6"
+  default     = "1.5.0-beta10"
 }
 
