@@ -14,7 +14,7 @@ resource "kubernetes_namespace" "gloo_system" {
 resource "helm_release" "gloo_ce" {
   name       = "gloo-ce"
   repository = "https://storage.googleapis.com/solo-public-helm"
-  chart      = "gloo-ce"
+  chart      = "gloo"
   version    = "${var.release_version}"
   namespace  = "${var.namespace}"
   atomic     = false
