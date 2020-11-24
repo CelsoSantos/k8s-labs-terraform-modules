@@ -36,7 +36,7 @@ module "gloo_gw" {
   license_key            = "LICENSE_KEY"
   namespace              = "gloo-system"
   prometheus_url         = "protocol://svc-name.namespace.svc:port"
-  release_version        = "1.4.2"
+  release_version        = "1.4.6"
   stats                  = true
 }
 ```

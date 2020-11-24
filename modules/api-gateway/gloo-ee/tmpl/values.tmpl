@@ -34,6 +34,10 @@ gloo:
     clusterName: cluster.local
 
 global:
+  extensions:
+    extAuthzServerRef:
+      name: ext_authz
+      namespace: gloo-system
   glooRbac:
     create: true
     namespaced: false

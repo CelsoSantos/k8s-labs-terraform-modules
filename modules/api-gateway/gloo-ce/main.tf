@@ -19,24 +19,20 @@ resource "helm_release" "gloo_ce" {
   namespace  = "${var.namespace}"
   atomic     = false
 
-  values = [
-    "${file("${path.module}/tmpl/values.yaml")}"
-  ]
-
+  ### ARM Tests
   # values = [
-  #   "${templatefile("${path.module}/tmpl/values.tmpl", {
-  #      discovery_enabled  = var.discovery_enabled
-  #      discovery_fds_mode = var.discovery_fds_mode
-  #      gateway_enabled    = var.gateway_enabled
-  #      knative_enabled    = var.knative_enabled
-  #      knative_version    = var.knative_version
-  #   })}"
+  #   "${file("${path.module}/tmpl/values-arm.yaml")}"
   # ]
 
-  # set_sensitive {
-  #   name  = "license_key"
-  #   value = "${var.license_key}"
-  # }
+  values = [
+    "${templatefile("${path.module}/tmpl/values.tmpl", {
+      discovery_enabled  = var.discovery_enabled
+      discovery_fds_mode = var.discovery_fds_mode
+      gateway_enabled    = var.gateway_enabled
+      knative_enabled    = var.knative_enabled
+      knative_version    = var.knative_version
+    })}"
+  ]
 
   depends_on = [
     kubernetes_namespace.gloo_system

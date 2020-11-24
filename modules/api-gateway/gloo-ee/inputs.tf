@@ -79,6 +79,12 @@ variable "namespace" {
   default     = "gloo-system"
 }
 
+variable "plugin_repository" {
+  description = "Repository for Ext Auth Plugin"
+  type        = string
+  default     = "celsosantos"
+}
+
 variable "prometheus_url" {
   description = "URL for custom Prometheus instance"
   type        = string
