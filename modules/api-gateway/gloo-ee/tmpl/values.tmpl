@@ -7,7 +7,7 @@ gloo:
   accessLogger:
     enabled: ${access_logger_enabled}
     stats:
-      enabled: false
+      enabled: ${stats}
   discovery:
     enabled: ${discovery_enabled}
     deployment:
@@ -22,7 +22,7 @@ gloo:
   gatewayProxies:
     gatewayProxy:
       stats:
-        enabled: true
+        enabled: ${stats}
       readConfig: true
   gloo:
     deployment:
@@ -34,15 +34,11 @@ gloo:
     clusterName: cluster.local
 
 global:
-  extensions:
-    extAuthzServerRef:
-      name: ext_authz
-      namespace: gloo-system
   glooRbac:
     create: true
     namespaced: false
   glooStats:
-    enabled: false
+    enabled: ${stats}
 
 grafana:
   admin:
@@ -51,11 +47,11 @@ grafana:
     userKey: admin-user
   adminPassword: admin
   adminUser: admin
-  defaultInstallationEnabled: true
+  defaultInstallationEnabled: false
   persistence:
     accessModes:
       - ReadWriteOnce
-    enabled: true
+    enabled: false
     finalizers:
       - kubernetes.io/pvc-protection
     size: 2Gi
@@ -74,9 +70,9 @@ prometheus:
       mountPath: /data
       size: 10Gi
       subPath: ""
-  enabled: true
+  enabled: false
   rbac:
-    create: true
+    create: false
 
 rbac:
   create: true
